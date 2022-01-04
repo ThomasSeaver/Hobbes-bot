@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { SYED_ID, TOKEN } = process.env;
+const { TOKEN } = process.env;
 
 const { Client, Intents } = require('discord.js');
 const { functions } = require('./commands');
@@ -20,9 +20,9 @@ client.on('interactionCreate', async (interaction) => {
 });
 
 client.on('messageCreate', async (message) => {
-  const { SYED_MUTED } = process.env;
+  const { MUTED_USERS = [] } = global;
 
-  if (SYED_MUTED === 'true' && message.author.id === SYED_ID) {
+  if (MUTED_USERS.find((user) => user.id === message.author.id)) {
     await message.delete();
   }
 });

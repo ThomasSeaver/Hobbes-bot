@@ -1,7 +1,9 @@
+const clearMute = require('./clear-mute');
+const mute = require('./mute');
 const ping = require('./ping');
 const syed = require('./syed');
 
-const commands = [ping, syed];
+const commands = [clearMute, mute, ping, syed];
 
 const functions = {};
 
