@@ -56,7 +56,9 @@ class AudioPlayer {
       this.playing = null;
       if (this.queue.length > 0) {
         const { resource, metadata } = this.queue.shift();
-        resource.volume.setVolume(0.5);
+        if (resource.volume) {
+          resource.volume?.setVolume(0.5);
+        }
         this.player.play(resource);
         this.playing = metadata;
       }
@@ -68,7 +70,9 @@ class AudioPlayer {
 
     if (this.queue.length === 0 && this.player.state.status === AudioPlayerStatus.Idle) {
       const resource = await generateAudioResource(url);
-      resource.volume.setVolume(0.5);
+      if (resource.volume) {
+        resource.volume?.setVolume(0.5);
+      }
       this.player.play(resource);
       this.playing = metadata;
     } else {
