@@ -23,7 +23,7 @@ const execute = async (interaction) => {
     global.MUTED_USERS = global.MUTED_USERS.filter((id) => id !== target.id);
   }, minutes * 60 * 1000);
 
-  await interaction.reply(`${target.username} is no longer an issue for ${minutes} minutes!`);
+  await interaction.reply(`${target.nickname} is no longer an issue for ${minutes} minutes!`);
 };
 
 module.exports = {

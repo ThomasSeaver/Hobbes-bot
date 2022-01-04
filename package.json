@@ -18,7 +18,9 @@
     "discord.js": "^13.5.0",
     "dotenv": "^10.0.0",
     "ffmpeg-static": "^4.4.1",
-    "libsodium-wrappers": "^0.7.9"
+    "libsodium-wrappers": "^0.7.9",
+    "youtube-dl-exec": "^2.0.2",
+    "ytdl-core": "^4.9.2"
   },
   "devDependencies": {
     "eslint": "^8.6.0",
