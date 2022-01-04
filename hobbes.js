@@ -24,7 +24,7 @@ client.on('interactionCreate', async (interaction) => {
 client.on('messageCreate', async (message) => {
   const { MUTED_USERS = [] } = global;
 
-  if (MUTED_USERS.find((user) => user.id === message.author.id)) {
+  if (MUTED_USERS.find((id) => id === message.author.id)) {
     await message.delete();
   }
 });

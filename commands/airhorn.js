@@ -26,7 +26,8 @@ const execute = async (interaction) => {
 
   // Set up audio resource / player / subscription / connection
   const player = createAudioPlayer();
-  const resource = createAudioResource(join(__dirname, '../media/airhorn.mp3'));
+  const resource = createAudioResource(join(__dirname, '../media/airhorn.mp3'), { inlineVolume: true });
+  resource.volume.setVolume(2.0);
   // resource doesn't play until subscription is created
   player.play(resource);
 
