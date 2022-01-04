@@ -4,8 +4,8 @@ const mute = require('./mute');
 const ping = require('./ping');
 const syed = require('./syed');
 
-const commands = [clearMute, mute, ping, syed];
-const testcommands = [...commands, airhorn];
+const commands = [clearMute, mute, ping, syed, airhorn];
+const testCommands = [...commands];
 
 const functions = {};
 
@@ -13,8 +13,8 @@ commands.forEach(({ name, execute }) => {
   functions[name] = execute;
 });
 
-testcommands.forEach(({ name, execute }) => {
+testCommands.forEach(({ name, execute }) => {
   functions[name] = execute;
 });
 
-module.exports = { testcommands, commands, functions };
+module.exports = { testCommands, commands, functions };

@@ -12,7 +12,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { commands, testcommands } = require('../commands');
+const { commands, testCommands } = require('../commands');
 
 const rest = new REST({ version: '9' }).setToken(TOKEN);
 
@@ -23,7 +23,7 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
 
     await rest.put(
       Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
-      { body: testcommands },
+      { body: testCommands },
     );
 
     await rest.put(
