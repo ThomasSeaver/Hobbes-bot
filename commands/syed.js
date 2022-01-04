@@ -6,7 +6,7 @@ const execute = async (interaction) => {
 
   setTimeout(() => {
     process.env.SYED_MUTED = false;
-  }, 10 * 1000);
+  }, 5 * 60 * 1000);
 
   await interaction.reply('Syed is no longer an issue!');
 };
