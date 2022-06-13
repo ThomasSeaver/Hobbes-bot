@@ -14,4 +14,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: cd Hobbes-bot && git fetch && git reset --hard origin/master' && pm2 restart hobbes
+          script: cd Hobbes-bot && git fetch && git reset --hard origin/master && pm2 restart hobbes
