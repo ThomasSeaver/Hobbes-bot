@@ -1,19 +1,25 @@
-require('dotenv').config();
+require("dotenv").config();
+
+require("./scripts/update-commands");
 
 const { TOKEN } = process.env;
 
-const { Client, Intents } = require('discord.js');
-const { functions } = require('./commands');
+const { Client, Intents } = require("discord.js");
+const { functions } = require("./commands");
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_VOICE_STATES,
+  ],
 });
 
-client.on('ready', () => {
+client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('interactionCreate', async (interaction) => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
 
   const execute = functions[interaction.commandName];
@@ -21,7 +27,7 @@ client.on('interactionCreate', async (interaction) => {
   await execute(interaction);
 });
 
-client.on('messageCreate', async (message) => {
+client.on("messageCreate", async (message) => {
   const { MUTED_USERS = [] } = global;
 
   if (MUTED_USERS.find((id) => id === message.author.id)) {
