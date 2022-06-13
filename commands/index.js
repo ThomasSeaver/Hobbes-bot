@@ -4,8 +4,8 @@ const clearMute = require("./clear-mute");
 const mute = require("./mute");
 const pause = require("./pause");
 const ping = require("./ping");
-const pong = require("./pong");
 const play = require("./play");
+const pong = require("./pong");
 const queue = require("./queue");
 const resume = require("./resume");
 const skip = require("./skip");
@@ -19,11 +19,17 @@ const commands = [
   pause,
   ping,
   play,
+  pong,
   queue,
   resume,
   skip,
   syed,
-  pong,
 ];
 
-module.exports = { commands };
+const functions = {};
+
+commands.forEach(({ name, execute }) => {
+  functions[name] = execute;
+});
+
+module.exports = { commands, functions };
