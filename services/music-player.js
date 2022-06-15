@@ -63,93 +63,67 @@ class AudioPlayer {
     this.player = createAudioPlayer();
 
     this.player.on(AudioPlayerStatus.Idle, () => {
-      this.playing = null;
       if (this.queue.length > 0) {
-        const { resource, metadata } = this.queue.shift();
-        if (resource.volume) {
-          resource.volume?.setVolume(0.5);
-        }
-        this.player.play(resource);
-        this.playing = metadata;
+        this.playQueuedAudio();
       }
     });
   }
 
-  async play(url) {
+  async add(url) {
     const metadata = await getInfo(url);
+    const resource = await generateAudioResource(url);
 
-    if (
-      this.queue.length === 0 &&
-      this.player.state.status === AudioPlayerStatus.Idle
-    ) {
-      const resource = await generateAudioResource(url);
-      if (resource.volume) {
-        resource.volume?.setVolume(0.5);
-      }
-      this.player.play(resource);
-      this.playing = metadata;
-    } else {
-      const resource = generateAudioResource(url);
-      this.queue.push({ resource, metadata });
+    this.queue.push({ resource, metadata });
+
+    if (this.player.state === AudioPlayerStatus.idle) {
+      this.playQueuedAudio();
     }
 
     return { status: "success" };
   }
 
+  remove(index) {
+    this.queue.splice(index - 1);
+  }
+
   skip() {
-    if (!this.connection) {
-      return { err: "Can't skip, not connected to a voice channel." };
+    if (this.player.state === AudioPlayerStatus.Playing) {
+      return { err: "Not currently playing audio" };
     }
-
-    if (this.player.state.status === AudioPlayerStatus.Idle) {
-      return { err: "Can't skip, no currently playing audio." };
-    }
-
-    // Calling stop forces it into the idle state, so it'll trigger next song
     this.player.stop();
+    return { status: "success" };
+  }
 
+  play() {
+    if (this.player.state === AudioPlayerStatus.Paused) {
+      return { err: "Not currently paused" };
+    }
+
+    this.player.unpause();
     return { status: "success" };
   }
 
   pause() {
-    if (!this.connection) {
-      return { err: "Can't pause, not connected to a voice channel." };
-    }
-
-    if (this.player.state.status !== AudioPlayerStatus.Playing) {
-      return { err: "Can't pause, no currently playing audio." };
+    if (this.player.state === AudioPlayerStatus.Playing) {
+      return { err: "Not currently playing audio" };
     }
 
     this.player.pause();
-
     return { status: "success" };
   }
 
-  resume() {
-    if (!this.connection) {
-      return { err: "Can't resume, not connected to a voice channel." };
+  stop() {
+    if (this.player.state === AudioPlayerStatus.Playing) {
+      return { err: "Not currently playing audio" };
     }
 
-    if (this.player.state.status !== AudioPlayerStatus.Paused) {
-      return { err: "Can't resume, not currently paused." };
-    }
-
-    this.player.unpause();
-
+    this.queue = [];
+    this.player.stop();
     return { status: "success" };
   }
 
   clear() {
-    if (!this.connection) {
-      return { err: "Can't clear, not connected to a voice channel." };
-    }
-
-    if (this.queue.length === 0) {
-      return { err: "Can't clear, queue is already empty." };
-    }
-
     this.queue = [];
-
     return { status: "success" };
   }
 
@@ -158,18 +132,23 @@ class AudioPlayer {
       return { err: "Queue is empty, no info to display." };
     }
 
-    const queueData = [
-      this.playing,
-      ...this.queue.map(({ metadata }) => metadata),
-    ];
+    const queueData = [...this.queue.map(({ metadata }) => metadata)];
 
     return {
-      res: `\`\`\`${queueData
+      res: `\`\`\`${
+        this.playing && `Playing ${this.playing.videoDetails.title}`
+      }\n${queueData
         .map(
           (metadata, index) => `${index + 1}. ${metadata.videoDetails.title}`
         )
         .join("\n")}\`\`\``,
     };
+  }
+
+  playQueuedAudio() {
+    const { resource, metadata } = this.queue.shift();
+    this.player.play(resource);
+    this.playing = metadata;
   }
 
   generateVoiceConnection(channel) {

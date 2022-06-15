@@ -2,7 +2,7 @@
 
 require("dotenv").config();
 
-const { ADMIN_ROLE_ID, CLIENT_ID, TOKEN, TOM_ID } = process.env;
+const { CLIENT_ID, TOKEN } = process.env;
 
 const { Client, Intents } = require("discord.js");
 

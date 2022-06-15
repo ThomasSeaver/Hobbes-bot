@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import player from "../../services/audio-player.js";
+import player from "../../services/music-player.js";
 import ytdlcore from "ytdl-core";
 const { validateURL } = ytdlcore;
 

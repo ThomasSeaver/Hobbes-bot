@@ -14,4 +14,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: cd Hobbes-bot && git pull && pm2 restart hobbes
+          script: cd Hobbes-bot && git pull && npm i && pm2 restart hobbes

@@ -1,4 +1,4 @@
-import player from "../../services/audio-player.js";
+import player from "../../services/music-player.js";
 
 const name = "resume";
 const description = "Resumes audio player";
