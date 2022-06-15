@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import player from "../../services/music-player.js";
 import search from "youtube-search";
 import ytdlcore from "ytdl-core";
-const { validateURL } = ytdlcore;
+const { getBasicInfo, validateURL } = ytdlcore;
 
 const command = new SlashCommandBuilder()
   .setName("add")
@@ -20,20 +20,24 @@ const execute = async (interaction) => {
   const channel = interaction.member?.voice?.channel;
 
   if (!channel) {
-    interaction.reply("Join a channel first!");
+    await interaction.reply("Join a channel first!");
     return;
   }
 
-  let url = null;
-  const searchParam = interaction.options.getString("search");
+  const searchParam = interaction.options.getString("search").trim();
 
   if (validateURL(searchParam)) {
-    const { err, title } = player.add(channel, searchParam);
+    const { err } = player.add(channel, searchParam);
     if (err) {
       await interaction.reply(err);
       return;
     }
 
+    const {
+      videoDetails: { title },
+    } = await getBasicInfo(searchParam);
+
+    console.log(title);
     await interaction.reply(`Added ${title} to queue`);
     return;
   }
@@ -56,6 +60,7 @@ const execute = async (interaction) => {
   }
 
   await interaction.reply(`Added [${results[0].title}] to queue`);
+  return;
 };
 
 export default { ...command, execute };

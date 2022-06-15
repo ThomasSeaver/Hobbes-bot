@@ -86,7 +86,7 @@ class AudioPlayer {
       this.playQueuedAudio();
     }
 
-    return { status: "success", title: metadata.videoDetails.title };
+    return { status: "success" };
   }
 
   remove(index) {
@@ -157,14 +157,36 @@ class AudioPlayer {
       return { err: "Queue is empty, no info to display." };
     }
 
-    const queueData = this.queue.map(
-      ({ metadata: { videoDetails } }) => videoDetails
+    const queueData = this.queue.map((track) => ({
+      title: track.metadata.videoDetails.title,
+      lengthSeconds: track.metadata.videoDetails.lengthSeconds,
+    }));
+
+    const { title, lengthSeconds } = this.playing.videoDetails;
+
+    const playbackDuration = Math.floor(
+      this.player.state.playbackDuration / 1000
     );
 
-    const queueString = `\`\`\`Playing: ${this.playing.videoDetails.title} ${
+    const playStatus = ` ${Math.floor(playbackDuration / 60)}:${(
+      playbackDuration % 60
+    )
+      .toString()
+      .padStart(2, "0")} / ${Math.floor(lengthSeconds / 60)}:${(
+      lengthSeconds % 60
+    )
+      .toString()
+      .padStart(2, "0")}`;
+
+    const queueString = `\`\`\`Playing: ${title} | ${playStatus}${
       this.queue.length
         ? `\n\nQueue:\n${queueData
-            .map(({ title }, index) => `${index + 1}: ${title}`)
+            .map(({ title, lengthSeconds }, index) => {
+              const min = Math.floor(lengthSeconds / 60);
+              const seconds = (lengthSeconds % 60).toString().padStart(2, "0");
+
+              return `${index + 1}: ${title} | ${min}:${seconds}`;
+            })
             .join("\n")}`
         : ""
     }\`\`\``;

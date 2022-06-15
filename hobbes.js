@@ -21,6 +21,8 @@ client.on("ready", () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
 
+  console.log("Attempting to execute: ", interaction.commandName);
+
   const { execute } = functions[interaction.commandName];
 
   await execute(interaction);
