@@ -1,7 +1,7 @@
 import player from "../../services/music-player.js";
 
-const name = "add";
-const description = "Adds to audio queue, plays if queue is empty";
+const name = "play";
+const description = "Resumes audio queue";
 
 const execute = async (interaction) => {
   // Handle voice connection

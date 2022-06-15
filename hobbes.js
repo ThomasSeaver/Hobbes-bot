@@ -2,6 +2,8 @@ import "dotenv/config";
 import { Client, Intents } from "discord.js";
 import functions from "./commands/index.js";
 
+import "./scripts/update-commands.js";
+
 const { TOKEN } = process.env;
 
 const client = new Client({

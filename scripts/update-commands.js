@@ -1,18 +1,18 @@
 // Based largely off discord.js guide
 
-require("dotenv").config();
+import "dotenv/config";
+
+import { Client, Intents } from "discord.js";
+
+import { REST } from "@discordjs/rest";
+import { Routes } from "discord-api-types/v9";
+import commands from "../commands/index.js";
 
 const { CLIENT_ID, TOKEN } = process.env;
-
-const { Client, Intents } = require("discord.js");
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
-
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
-const { commands } = require("../commands");
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);
 
@@ -21,7 +21,9 @@ const rest = new REST({ version: "10" }).setToken(TOKEN);
   try {
     console.log("Started refreshing application (/) commands.");
 
-    await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+    await rest.put(Routes.applicationCommands(CLIENT_ID), {
+      body: Object.values(commands),
+    });
 
     console.log("Successfully reloaded application (/) commands.");
   } catch (error) {

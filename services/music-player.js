@@ -85,7 +85,7 @@ class AudioPlayer {
       this.playQueuedAudio();
     }
 
-    return { status: "success" };
+    return { status: "success", title: metadata.videoDetails.title };
   }
 
   remove(index) {
@@ -98,6 +98,8 @@ class AudioPlayer {
     }
 
     this.generateVoiceConnection(channel);
+
+    this.playing = null;
 
     this.player.stop();
     return { status: "success" };
@@ -132,6 +134,7 @@ class AudioPlayer {
 
     this.generateVoiceConnection(channel);
 
+    this.playing = null;
     this.queue = [];
     this.player.stop();
     return { status: "success" };
@@ -177,7 +180,6 @@ class AudioPlayer {
   }
 
   generateVoiceConnection(channel) {
-    console.log(this.connection);
     if (!this.connection || this.connection.channelId !== channel.id) {
       this.connection = joinVoiceChannel({
         channelId: channel.id,
