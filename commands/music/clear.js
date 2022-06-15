@@ -12,7 +12,7 @@ const execute = async (interaction) => {
     return;
   }
 
-  const { err } = player.clear();
+  const { err } = player.clear(channel);
 
   if (err) {
     await interaction.reply(err);

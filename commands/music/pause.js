@@ -12,7 +12,7 @@ const execute = async (interaction) => {
     return;
   }
 
-  const { err } = player.pause();
+  const { err } = player.pause(channel);
 
   if (err) {
     await interaction.reply(err);

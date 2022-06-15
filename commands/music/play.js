@@ -1,15 +1,7 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
 import player from "../../services/music-player.js";
-import ytdlcore from "ytdl-core";
-const { validateURL } = ytdlcore;
 
-const command = new SlashCommandBuilder()
-  .setName("play")
-  .setDescription("Plays or enqueues attached audio")
-  .addStringOption((option) =>
-    option.setName("url").setDescription("The url to play").setRequired(true)
-  )
-  .toJSON();
+const name = "add";
+const description = "Adds to audio queue, plays if queue is empty";
 
 const execute = async (interaction) => {
   // Handle voice connection
@@ -20,16 +12,7 @@ const execute = async (interaction) => {
     return;
   }
 
-  const url = interaction.options.getString("url");
-
-  if (!validateURL(url)) {
-    await interaction.reply("Invalid youtube url.");
-    return;
-  }
-
-  player.generateVoiceConnection(channel);
-
-  const { err } = player.add(url);
+  const { err } = player.play(channel);
 
   if (err) {
     await interaction.reply(err);
@@ -39,4 +22,4 @@ const execute = async (interaction) => {
   await interaction.reply("Audio set to play.");
 };
 
-export default { ...command, execute };
+export default { name, description, execute };

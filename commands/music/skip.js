@@ -12,7 +12,7 @@ const execute = async (interaction) => {
     return;
   }
 
-  const { err } = player.skip();
+  const { err } = player.skip(channel);
 
   if (err) {
     await interaction.reply(err);

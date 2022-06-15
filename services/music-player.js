@@ -69,13 +69,19 @@ class AudioPlayer {
     });
   }
 
-  async add(url) {
+  async add(channel, url) {
     const metadata = await getInfo(url);
     const resource = await generateAudioResource(url);
 
+    if (resource.volume) {
+      resource.volume?.setVolume(0.5);
+    }
+
     this.queue.push({ resource, metadata });
 
-    if (this.player.state === AudioPlayerStatus.idle) {
+    this.generateVoiceConnection(channel);
+
+    if (this.player.state.status === AudioPlayerStatus.Idle) {
       this.playQueuedAudio();
     }
 
@@ -86,43 +92,58 @@ class AudioPlayer {
     this.queue.splice(index - 1);
   }
 
-  skip() {
-    if (this.player.state === AudioPlayerStatus.Playing) {
+  skip(channel) {
+    if (this.player.state.status !== AudioPlayerStatus.Playing) {
       return { err: "Not currently playing audio" };
     }
+
+    this.generateVoiceConnection(channel);
+
     this.player.stop();
     return { status: "success" };
   }
 
-  play() {
-    if (this.player.state === AudioPlayerStatus.Paused) {
+  play(channel) {
+    if (this.player.state.status !== AudioPlayerStatus.Paused) {
       return { err: "Not currently paused" };
     }
+
+    this.generateVoiceConnection(channel);
 
     this.player.unpause();
     return { status: "success" };
   }
 
-  pause() {
-    if (this.player.state === AudioPlayerStatus.Playing) {
+  pause(channel) {
+    if (this.player.state.status !== AudioPlayerStatus.Playing) {
       return { err: "Not currently playing audio" };
     }
+
+    this.generateVoiceConnection(channel);
 
     this.player.pause();
     return { status: "success" };
   }
 
-  stop() {
-    if (this.player.state === AudioPlayerStatus.Playing) {
+  stop(channel) {
+    if (this.player.state.status !== AudioPlayerStatus.Playing) {
       return { err: "Not currently playing audio" };
     }
+
+    this.generateVoiceConnection(channel);
 
     this.queue = [];
     this.player.stop();
     return { status: "success" };
   }
 
-  clear() {
+  clear(channel) {
+    if (this.queue.length === 0) {
+      return { err: "Queue is currently empty" };
+    }
+
+    this.generateVoiceConnection(channel);
+
     this.queue = [];
     return { status: "success" };
   }
@@ -132,16 +153,20 @@ class AudioPlayer {
       return { err: "Queue is empty, no info to display." };
     }
 
-    const queueData = [...this.queue.map(({ metadata }) => metadata)];
+    const queueData = this.queue.map(
+      ({ metadata: { videoDetails } }) => videoDetails
+    );
+
+    const queueString = `\`\`\`Playing: ${this.playing.videoDetails.title} ${
+      this.queue.length
+        ? `\n\nQueue:\n${queueData
+            .map(({ title }, index) => `${index + 1}: ${title}`)
+            .join("\n")}`
+        : ""
+    }\`\`\``;
 
     return {
-      res: `\`\`\`${
-        this.playing && `Playing ${this.playing.videoDetails.title}`
-      }\n${queueData
-        .map(
-          (metadata, index) => `${index + 1}. ${metadata.videoDetails.title}`
-        )
-        .join("\n")}\`\`\``,
+      res: queueString,
     };
   }
 
@@ -152,7 +177,8 @@ class AudioPlayer {
   }
 
   generateVoiceConnection(channel) {
-    if (!this.connection) {
+    console.log(this.connection);
+    if (!this.connection || this.connection.channelId !== channel.id) {
       this.connection = joinVoiceChannel({
         channelId: channel.id,
         guildId: channel.guild.id,
