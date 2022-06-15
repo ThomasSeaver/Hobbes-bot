@@ -29,7 +29,7 @@ const execute = async (interaction) => {
 
   player.generateVoiceConnection(channel);
 
-  const { err } = player.play(url);
+  const { err } = player.add(url);
 
   if (err) {
     await interaction.reply(err);
