@@ -63,6 +63,7 @@ class AudioPlayer {
     this.player = createAudioPlayer();
 
     this.player.on(AudioPlayerStatus.Idle, () => {
+      this.playing = null;
       if (this.queue.length > 0) {
         this.playQueuedAudio();
       }
