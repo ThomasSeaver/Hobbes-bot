@@ -1,14 +1,14 @@
-const { player } = require('../services/audio-player');
+import player from "../../services/audio-player.js";
 
-const name = 'queue';
-const description = 'Displays current queue';
+const name = "queue";
+const description = "Displays current queue";
 
 const execute = async (interaction) => {
   // Handle voice connection
   const channel = interaction.member?.voice?.channel;
 
   if (!channel) {
-    await interaction.reply('Join a channel first!');
+    await interaction.reply("Join a channel first!");
     return;
   }
 
@@ -22,8 +22,4 @@ const execute = async (interaction) => {
   await interaction.reply(res);
 };
 
-module.exports = {
-  name,
-  description,
-  execute,
-};
+export default { name, description, execute };

@@ -7,8 +7,4 @@ const execute = async (interaction) => {
   );
 };
 
-module.exports = {
-  name,
-  description,
-  execute,
-};
+export default { name, description, execute };

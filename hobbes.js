@@ -1,11 +1,8 @@
-require("dotenv").config();
-
-require("./scripts/update-commands");
+import "dotenv/config";
+import { Client, Intents } from "discord.js";
+import functions from "./commands/index.js";
 
 const { TOKEN } = process.env;
-
-const { Client, Intents } = require("discord.js");
-const { functions } = require("./commands");
 
 const client = new Client({
   intents: [
@@ -22,17 +19,9 @@ client.on("ready", () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
 
-  const execute = functions[interaction.commandName];
+  const { execute } = functions[interaction.commandName];
 
   await execute(interaction);
-});
-
-client.on("messageCreate", async (message) => {
-  const { MUTED_USERS = [] } = global;
-
-  if (MUTED_USERS.find((id) => id === message.author.id)) {
-    await message.delete();
-  }
 });
 
 client.login(TOKEN);
