@@ -28,7 +28,7 @@ const execute = async (interaction) => {
   const searchParam = interaction.options.getString("search");
 
   if (validateURL(searchParam)) {
-    const { err, title } = player.add(channel, url);
+    const { err, title } = player.add(channel, searchParam);
     if (err) {
       await interaction.reply(err);
       return;
