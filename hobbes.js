@@ -1,29 +1,39 @@
 import "dotenv/config";
-import { Client, Intents } from "discord.js";
-import functions from "./commands/index.js";
+import { Client, GatewayIntentBits, REST, Routes } from 'discord.js';
+import commands from "../commands/index.js";
 
-import "./scripts/update-commands.js";
+const { CLIENT_ID, TOKEN } = process.env;
 
-const { TOKEN } = process.env;
+console.log("Initializing Hobbes");
 
-const client = new Client({
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES,
-  ],
-});
+const rest = new REST({ version: '10' }).setToken(TOKEN);
 
-client.on("ready", () => {
+// Updates application commands on startup
+(async () => {
+  try {
+    console.log('Started refreshing application (/) commands.');
+
+    await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+
+    console.log('Successfully reloaded application (/) commands.');
+  } catch (error) {
+    console.error(error);
+  }
+})();
+
+// Handle interactions
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
+
+client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return;
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isChatInputCommand()) return;
 
   console.log("Attempting to execute: ", interaction.commandName);
 
-  const { execute } = functions[interaction.commandName];
+  const { execute } = commands[interaction.commandName];
 
   await execute(interaction);
 });
