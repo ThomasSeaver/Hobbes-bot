@@ -4,6 +4,7 @@ import {
   createAudioResource,
   joinVoiceChannel,
   demuxProbe,
+  generateDependencyReport,
 } from "@discordjs/voice";
 
 import ytdlexec from "youtube-dl-exec";
@@ -57,6 +58,7 @@ const generateAudioResource = (url) =>
 
 class AudioPlayer {
   constructor() {
+    console.log(generateDependencyReport());
     this.playing = null;
     this.queue = [];
     this.connection = null;
@@ -80,7 +82,7 @@ class AudioPlayer {
 
     this.queue.push({ resource, metadata });
 
-    this.generateVoiceConnection(channel);
+    //this.generateVoiceConnection(channel);
 
     if (this.player.state.status === AudioPlayerStatus.Idle) {
       this.playQueuedAudio();
