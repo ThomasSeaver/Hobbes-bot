@@ -33,9 +33,7 @@ client.on('interactionCreate', async interaction => {
 
   console.log("Attempting to execute: ", interaction.commandName);
 
-  const { execute } = executeMap[interaction.commandName];
-
-  await execute(interaction);
+  await executeMap[interaction.commandName](interaction);
 });
 
 client.login(TOKEN);
