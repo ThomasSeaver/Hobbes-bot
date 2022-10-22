@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { player } from "../../services/music-player.js";
 
 const slashCommand = new SlashCommandBuilder()
-  .setName("Clear")
+  .setName("clear")
   .setDescription("Clears audio queue")
   .toJSON()
 
