@@ -1,5 +1,9 @@
-const name = "shivam";
-const description = "you'll know what this one should do";
+import { SlashCommandBuilder } from "@discordjs/builders";
+
+const slashCommand = new SlashCommandBuilder()
+  .setName("shivam")
+  .setDescription("you'll know what this one should do")
+  .toJSON()
 
 const execute = async (interaction) => {
   // Handle voice connection
@@ -17,4 +21,4 @@ const execute = async (interaction) => {
   await interaction.reply(`get shivamed ${member.nickname}`);
 };
 
-export default { name, description, execute };
+export const shivam = { slashCommand, execute };

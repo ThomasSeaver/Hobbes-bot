@@ -1,7 +1,10 @@
-import player from "../../services/music-player.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { player } from "../../services/music-player.js";
 
-const name = "queue";
-const description = "Displays current queue";
+const slashCommand = new SlashCommandBuilder()
+  .setName("queue")
+  .setDescription("Displays current queue")
+  .toJSON()
 
 const execute = async (interaction) => {
   const { res, err } = player.queueInfo();
@@ -14,4 +17,4 @@ const execute = async (interaction) => {
   await interaction.reply(res);
 };
 
-export default { name, description, execute };
+export const queue = { slashCommand, execute };

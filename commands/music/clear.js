@@ -1,7 +1,10 @@
-import player from "../../services/music-player.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { player } from "../../services/music-player.js";
 
-const name = "clear";
-const description = "Clears audio queue";
+const slashCommand = new SlashCommandBuilder()
+  .setName("Clear")
+  .setDescription("Clears audio queue")
+  .toJSON()
 
 const execute = async (interaction) => {
   // Handle voice connection
@@ -22,4 +25,4 @@ const execute = async (interaction) => {
   await interaction.reply("Cleared audio queue.");
 };
 
-export default { name, description, execute };
+export const clear = { slashCommand, execute };

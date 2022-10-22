@@ -1,10 +1,10 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import player from "../../services/music-player.js";
+import { player } from "../../services/music-player.js";
 import search from "youtube-search";
 import ytdlcore from "ytdl-core";
 const { getBasicInfo, validateURL } = ytdlcore;
 
-const command = new SlashCommandBuilder()
+const slashCommand = new SlashCommandBuilder()
   .setName("add")
   .setDescription("Adds to audio queue, plays if queue is empty")
   .addStringOption((option) =>
@@ -63,4 +63,4 @@ const execute = async (interaction) => {
   return;
 };
 
-export default { ...command, execute };
+export const add = { slashCommand, execute };

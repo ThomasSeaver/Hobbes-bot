@@ -1,7 +1,10 @@
-import player from "../../services/music-player.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { player } from "../../services/music-player.js";
 
-const name = "skip";
-const description = "Skips currently playing audio";
+const slashCommand = new SlashCommandBuilder()
+  .setName("skip")
+  .setDescription("Skips currently playing audio")
+  .toJSON()
 
 const execute = async (interaction) => {
   // Handle voice connection
@@ -22,4 +25,4 @@ const execute = async (interaction) => {
   await interaction.reply("Skipped audio.");
 };
 
-export default { name, description, execute };
+export const skip = { slashCommand, execute };

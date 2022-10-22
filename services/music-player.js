@@ -173,23 +173,22 @@ class AudioPlayer {
     )
       .toString()
       .padStart(2, "0")} / ${Math.floor(lengthSeconds / 60)}:${(
-      lengthSeconds % 60
-    )
-      .toString()
-      .padStart(2, "0")}`;
+        lengthSeconds % 60
+      )
+        .toString()
+        .padStart(2, "0")}`;
 
-    const queueString = `\`\`\`Playing: ${title} | ${playStatus}${
-      this.queue.length
-        ? `\n\nQueue:\n${queueData
-            .map(({ title, lengthSeconds }, index) => {
-              const min = Math.floor(lengthSeconds / 60);
-              const seconds = (lengthSeconds % 60).toString().padStart(2, "0");
+    const queueString = `\`\`\`Playing: ${title} | ${playStatus}${this.queue.length
+      ? `\n\nQueue:\n${queueData
+        .map(({ title, lengthSeconds }, index) => {
+          const min = Math.floor(lengthSeconds / 60);
+          const seconds = (lengthSeconds % 60).toString().padStart(2, "0");
 
-              return `${index + 1}: ${title} | ${min}:${seconds}`;
-            })
-            .join("\n")}`
-        : ""
-    }\`\`\``;
+          return `${index + 1}: ${title} | ${min}:${seconds}`;
+        })
+        .join("\n")}`
+      : ""
+      }\`\`\``;
 
     return {
       res: queueString,
@@ -219,4 +218,4 @@ class AudioPlayer {
 
 const player = new AudioPlayer();
 
-export default player;
+export { player };

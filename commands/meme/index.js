@@ -1,3 +1,3 @@
-import shivam from "./shivam.js";
+import { shivam } from "./shivam.js";
 
-export default { shivam };
+export const meme = [shivam];

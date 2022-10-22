@@ -1,7 +1,10 @@
-import player from "../../services/music-player.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { player } from "../../services/music-player.js";
 
-const name = "play";
-const description = "Resumes audio queue";
+const slashCommand = new SlashCommandBuilder()
+  .setName("play")
+  .setDescription("Plays currently paused audio")
+  .toJSON()
 
 const execute = async (interaction) => {
   // Handle voice connection
@@ -22,4 +25,4 @@ const execute = async (interaction) => {
   await interaction.reply("Audio set to play.");
 };
 
-export default { name, description, execute };
+export const play = { slashCommand, execute };

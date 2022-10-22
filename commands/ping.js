@@ -1,5 +1,9 @@
-const name = "ping";
-const description = "Replies with pong!";
+import { SlashCommandBuilder } from "@discordjs/builders";
+
+const slashCommand = new SlashCommandBuilder()
+  .setName("Ping")
+  .setDescription("Replies with pong")
+  .toJSON()
 
 const execute = async (interaction) => {
   await interaction.reply(
@@ -7,4 +11,4 @@ const execute = async (interaction) => {
   );
 };
 
-export default { name, description, execute };
+export const ping = { slashCommand, execute };
