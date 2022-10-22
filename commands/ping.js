@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 
 const slashCommand = new SlashCommandBuilder()
-  .setName("Ping")
+  .setName("ping")
   .setDescription("Replies with pong")
   .toJSON()
 
