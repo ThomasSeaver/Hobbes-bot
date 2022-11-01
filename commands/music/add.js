@@ -37,7 +37,6 @@ const execute = async (interaction) => {
       videoDetails: { title },
     } = await getBasicInfo(searchParam);
 
-    console.log(title);
     await interaction.reply(`Added ${title} to queue`);
     return;
   }
