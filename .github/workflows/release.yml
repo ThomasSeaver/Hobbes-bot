@@ -1,0 +1,46 @@
+name: Validate new code & release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .node-version
+
+      - name: Check dependencies for missing changes
+        run: yarn --immutable
+
+      - name: Check source for linting errors
+        run: yarn lint:check
+
+      - name: Check source for formatting errors
+        run: yarn format:check
+
+      - name: Check source for type errors
+        run: yarn typecheck
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd Hobbes-bot
+            git pull
+            pm2 stop all
+            pm2 delete all
+            pm2 start "yarn start" --name hobbes

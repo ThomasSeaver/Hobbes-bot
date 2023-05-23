@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "ES2020",
+    "module": "CommonJS",
+    "strict": true,
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node16"
+  },
+  "include": ["src/**/*.ts"],
+  "$schema": "https://json.schemastore.org/tsconfig"
+}
