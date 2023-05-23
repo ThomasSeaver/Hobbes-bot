@@ -36,7 +36,7 @@ export const queueResponse = async (
     )} / ${formatSecondLength(lengthSeconds)}`;
   });
 
-  const queueMessage = `\`\`\`\nqueue:\n${audioMetadataList.join("\n")}\`\`\`}`;
+  const queueMessage = `\`\`\`\nqueue:\n${audioMetadataList.join("\n")}\`\`\``;
 
   await interaction.reply(queueMessage);
 };
