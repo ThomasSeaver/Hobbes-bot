@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-import { getGuildVoice } from "../services/bot-data";
+import { getGuildVoiceData } from "../services/bot-data";
 
 const formatSecondLength = (secondLength: number) =>
   `${Math.floor(secondLength / 60)}:${(secondLength % 60)
@@ -14,7 +14,7 @@ export const queueTrigger = new SlashCommandBuilder()
 export const queueResponse = async (
   interaction: ChatInputCommandInteraction
 ) => {
-  const { playing, player, queue } = getGuildVoice(interaction);
+  const { playing, player, queue } = getGuildVoiceData(interaction);
 
   if (playing === null) {
     await interaction.reply("queue is currently empty");
