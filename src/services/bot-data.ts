@@ -106,12 +106,13 @@ export const getGuildVoiceData = (interaction: ChatInputCommandInteraction) => {
   const channel =
     member === null || "voice" in member ? member.voice.channel : null;
 
-  if (
-    channel === null ||
-    data[guild.id] === undefined ||
-    !("audio" in data[guild.id])
-  )
+  if (channel === null) {
     throw new Error("join a voice channel first");
+  }
+
+  if (data[guild.id] === undefined || !("audio" in data[guild.id])) {
+    throw new Error("no voice connection in guild");
+  }
 
   return data[guild.id].audio;
 };
