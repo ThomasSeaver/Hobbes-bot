@@ -48,7 +48,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:e2bc2bfdb34311a6fde69fc18c309606441ec5837637bf22905c9ffa3bb7bd423eb9b0a584c65f812f0a674d2cffec35ad51de038d26e25d3b05a4be030d713c#npm:10.9.1"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"],\
             ["utf-8-validate", "npm:6.0.3"],\
-            ["ytdl-core", "npm:4.11.4"],\
+            ["ytdl-core", "https://github.com:khlevon/node-ytdl-core.git#commit=87450450caabb91f81afa6e66758bf2f629664a1"],\
             ["ytsr", "npm:3.8.2"],\
             ["zlib-sync", "npm:0.1.8"],\
             ["zod", "npm:3.21.4"]\
@@ -2366,7 +2366,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:e2bc2bfdb34311a6fde69fc18c309606441ec5837637bf22905c9ffa3bb7bd423eb9b0a584c65f812f0a674d2cffec35ad51de038d26e25d3b05a4be030d713c#npm:10.9.1"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"],\
             ["utf-8-validate", "npm:6.0.3"],\
-            ["ytdl-core", "npm:4.11.4"],\
+            ["ytdl-core", "https://github.com:khlevon/node-ytdl-core.git#commit=87450450caabb91f81afa6e66758bf2f629664a1"],\
             ["ytsr", "npm:3.8.2"],\
             ["zlib-sync", "npm:0.1.8"],\
             ["zod", "npm:3.21.4"]\
@@ -4356,10 +4356,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["ytdl-core", [\
-        ["npm:4.11.4", {\
-          "packageLocation": "./.yarn/cache/ytdl-core-npm-4.11.4-74a04eb3b0-62c83baf85.zip/node_modules/ytdl-core/",\
+        ["https://github.com:khlevon/node-ytdl-core.git#commit=87450450caabb91f81afa6e66758bf2f629664a1", {\
+          "packageLocation": "./.yarn/cache/ytdl-core-https-65119efd2c-920b84b083.zip/node_modules/ytdl-core/",\
           "packageDependencies": [\
-            ["ytdl-core", "npm:4.11.4"],\
+            ["ytdl-core", "https://github.com:khlevon/node-ytdl-core.git#commit=87450450caabb91f81afa6e66758bf2f629664a1"],\
             ["m3u8stream", "npm:0.8.6"],\
             ["miniget", "npm:4.2.2"],\
             ["sax", "npm:1.2.4"]\
