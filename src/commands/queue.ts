@@ -12,7 +12,7 @@ export const queueTrigger = new SlashCommandBuilder()
   .toJSON();
 
 export const queueResponse = async (
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ) => {
   const { playing, player, queue } = getGuildVoiceData(interaction);
 
@@ -32,7 +32,7 @@ export const queueResponse = async (
     }
 
     return `${title} | ${formatSecondLength(
-      Math.floor(player.state.playbackDuration / 1000)
+      Math.floor(player.state.playbackDuration / 1000),
     )} / ${formatSecondLength(lengthSeconds)}`;
   });
 

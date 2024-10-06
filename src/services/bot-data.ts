@@ -49,6 +49,8 @@ export const getGuildVoice = (interaction: ChatInputCommandInteraction) => {
     data[guild.id] = {
       audio: {
         connection: joinVoiceChannel({
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           adapterCreator: guild.voiceAdapterCreator,
           channelId: channel.id,
           guildId: guild.id,
@@ -89,7 +91,7 @@ export const getGuildVoice = (interaction: ChatInputCommandInteraction) => {
 
     data[guild.id].audio.player.on(
       AudioPlayerStatus.Idle,
-      playFromQueueOrDestroy
+      playFromQueueOrDestroy,
     );
 
     playFromQueueOrDestroy();

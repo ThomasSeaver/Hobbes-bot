@@ -11,5 +11,5 @@ export const commandList = [clear, gamble, pause, ping, play, skip, queue];
 export const triggerList = commandList.map((command) => command.trigger);
 
 export const responseMap = Object.fromEntries(
-  commandList.map((command) => [command.trigger.name, command.response])
+  commandList.map((command) => [command.trigger.name, command.response]),
 );

@@ -8,7 +8,7 @@ export const clearTrigger = new SlashCommandBuilder()
   .toJSON();
 
 export const clearResponse = async (
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ) => {
   const { player, playing } = getGuildVoice(interaction);
 

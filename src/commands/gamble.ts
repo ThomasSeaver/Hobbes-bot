@@ -7,7 +7,7 @@ export const gambleTrigger = new SlashCommandBuilder()
   .toJSON();
 
 export const gambleResponse = async (
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ) => {
   const channel = getVoiceChannel(interaction);
 
@@ -18,11 +18,11 @@ export const gambleResponse = async (
   member.voice
     .disconnect()
     .catch((error: unknown) =>
-      console.error("Error thrown when disconnecting: ", error)
+      console.error("Error thrown when disconnecting: ", error),
     );
 
   await interaction.reply(
-    `You lost the roulette <@${member.id}>; you should rejoin unless you hate them now`
+    `You lost the roulette <@${member.id}>; you should rejoin unless you hate them now`,
   );
 };
 

@@ -8,7 +8,7 @@ export const skipTrigger = new SlashCommandBuilder()
   .toJSON();
 
 export const skipResponse = async (
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ) => {
   const { player, playing } = getGuildVoice(interaction);
 

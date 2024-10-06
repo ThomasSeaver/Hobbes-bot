@@ -6,7 +6,7 @@ export const pingTrigger = new SlashCommandBuilder()
   .toJSON();
 
 export const pingResponse = async (
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ) => {
   const rng = Math.random();
   const timeDelta = new Date().getTime() - interaction.createdAt.getTime();

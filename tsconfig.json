@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "target": "ES2020",
-    "module": "CommonJS",
+    "target": "ESNext",
+    "module": "NodeNext",
     "strict": true,
     "outDir": "dist",
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node16"
+    "moduleResolution": "NodeNext"
   },
   "include": ["src/**/*.ts"],
   "$schema": "https://json.schemastore.org/tsconfig"

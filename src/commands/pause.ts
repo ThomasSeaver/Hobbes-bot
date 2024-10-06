@@ -8,7 +8,7 @@ export const pauseTrigger = new SlashCommandBuilder()
   .toJSON();
 
 export const pauseResponse = async (
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ) => {
   const { player, playing } = getGuildVoice(interaction);
 

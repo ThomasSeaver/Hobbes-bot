@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Client, GatewayIntentBits, REST, Routes } from "discord.js";
 import { generateDependencyReport } from "@discordjs/voice";
 import { CLIENT_ID, TOKEN } from "./env";

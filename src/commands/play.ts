@@ -9,25 +9,25 @@ import {
   chooseFormat,
   downloadFromInfo,
   validateURL,
-} from "ytdl-core";
+} from "@distube/ytdl-core";
 import ytsr, { Video } from "ytsr";
 import { getGuildVoice, getGuildVoiceData } from "../services/bot-data";
 
 export const playTrigger = new SlashCommandBuilder()
   .setName("play")
   .setDescription(
-    "plays audio, or adds to queue if something is already playing"
+    "plays audio, or adds to queue if something is already playing",
   )
   .addStringOption((option) =>
     option
       .setName("search")
       .setDescription("The term to find a video with or the url to play")
-      .setRequired(false)
+      .setRequired(false),
   )
   .toJSON();
 
 export const playResponse = async (
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ) => {
   const searchOption = interaction.options.getString("search");
 
@@ -51,7 +51,7 @@ export const playResponse = async (
   if (!validateURL(url)) {
     const searchResults = await ytsr(url);
     const videos = searchResults.items.filter(
-      (item): item is Video => item.type === ("video" as const)
+      (item): item is Video => item.type === ("video" as const),
     );
     url = videos[0]?.url;
   }
@@ -73,7 +73,7 @@ export const playResponse = async (
     createAudioResource(stream, {
       inputType: type,
       metadata: { title, lengthSeconds },
-    })
+    }),
   );
 
   await interaction.editReply("queueing audio");
